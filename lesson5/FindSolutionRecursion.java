@@ -7,7 +7,7 @@ public class FindSolutionRecursion {
         String result = null;
         try {
             int userNumber = Integer.parseInt(args[0]);
-            System.out.println(findSolutionRecursion(userNumber, startNumber, startString, result));;
+            System.out.println(findSolutionRecursion(userNumber, startNumber, startString, result));
         } catch (NumberFormatException e){
             System.out.println("Argument must be a number");
         }
@@ -29,3 +29,4 @@ public class FindSolutionRecursion {
         return result;
     }
 }
+
