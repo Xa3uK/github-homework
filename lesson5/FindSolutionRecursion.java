@@ -14,8 +14,7 @@ public class FindSolutionRecursion {
         }
         System.out.println(notFind);
     }
-
-
+    
     public static void findSolutionRecursion(int number, int start, String str) {
         if (start + 5 == number) {
             System.out.println("(" + str + " + 5)");
