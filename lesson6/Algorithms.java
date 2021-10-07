@@ -2,33 +2,22 @@ package lesson6;
 
 public class Algorithms {
     public static void main(String[] args) {
-        int[] arraySortedLittle = createSortedArray(1000);
-        int[] arraySortedBig = createSortedArray(100000);
-        int[] arrayRandomLittleOne = createRandomArray(1000);
-        int[] arrayRandomBigOne = createRandomArray(100000);
-        int[] arrayRandomLittleTwo = createRandomArray(1000);
-        int[] arrayRandomBigTwo = createRandomArray(100000);
-
-        timerSimpleFind(arraySortedLittle);
-        timerBinaryFind(arraySortedLittle);
-        timerSimpleFind(arraySortedBig);
-        timerBinaryFind(arraySortedBig);
-        timerSelectionSort(arrayRandomLittleOne);
-        timerQuickSort(arrayRandomLittleTwo);
-        timerSelectionSort(arrayRandomBigOne);
-        timerQuickSort(arrayRandomBigTwo);
+        timerFindMethods(1000);
+        timerFindMethods(100000);
+        timerSortMethods(1000);
+        timerSortMethods(100000);
     }
 
     public static int[] quickSort(int[] array, int left, int right) {
         if (array.length < 2) {
             return array;
         }
-        if (left>= right) {
+        if (left >= right) {
             return array;
         }
         int i = left;
         int j = right;
-        int oporniy = array[(left + right) /2];
+        int oporniy = array[(left + right) / 2];
         while (i < j) {
             while (array[i] < oporniy) {
                 i++;
@@ -36,7 +25,7 @@ public class Algorithms {
             while (array[j] > oporniy) {
                 j--;
             }
-            if (i <= j){
+            if (i <= j) {
                 int tmp = array[i];
                 array[i] = array[j];
                 array[j] = tmp;
@@ -99,40 +88,37 @@ public class Algorithms {
         return middle;
     }
 
-    public static void timerSimpleFind(int[] array){
-        int findNumber = array.length-1;
-        long start = System.nanoTime();
-        simpleFind(array, findNumber);
-        long result = System.nanoTime() - start;
-        announcer(result, array, "SimpleFind");
+    public static void timerFindMethods(int arrayLength) {
+        int[] arrayOne = createSortedArray(arrayLength);
+        long startSimple = System.nanoTime();
+        simpleFind(arrayOne, arrayOne.length - 1);
+        long resultSimple = System.nanoTime() - startSimple;
+        announcer(resultSimple, arrayLength, "SimpleFind");
+
+        int[] arrayTwo = createSortedArray(arrayLength);
+        long startBinary = System.nanoTime();
+        binaryFind(arrayTwo, arrayTwo.length - 1);
+        long resultBinary = System.nanoTime() - startBinary;
+        announcer(resultBinary, arrayLength, "BinaryFind");
     }
 
-    public static void timerBinaryFind(int[] array){
-        int findNumber = array.length-1;
-        long start = System.nanoTime();
-        binaryFind(array, findNumber);
-        long result = System.nanoTime() - start;
-        announcer(result, array, "BinaryFind");
-    }
-    public static void timerSelectionSort(int[] array){
-        long start = System.nanoTime();
-        selectionSort(array);
-        long result = System.nanoTime() - start;
-        announcer(result, array, "SelectionSort");
+    public static void timerSortMethods(int arrayLength) {
+        int[] arrayOne = createRandomArray(arrayLength);
+        long startSelection = System.nanoTime();
+        selectionSort(arrayOne);
+        long resultSelection = System.nanoTime() - startSelection;
+        announcer(resultSelection, arrayLength, "SelectionSort");
+
+        int[] arrayTwo = createRandomArray(arrayLength);
+        long startQuick = System.nanoTime();
+        quickSort(arrayTwo, 0, arrayTwo.length - 1);
+        long resultQuick = System.nanoTime() - startQuick;
+        announcer(resultQuick, arrayLength, "QuickSort");
     }
 
-    public static void timerQuickSort(int[] array){
-        int left = 0;
-        int right = array.length-1;
-        long start = System.nanoTime();
-        quickSort(array, left, right);
-        long result = System.nanoTime() - start;
-        announcer(result, array, "QuickSort");
-    }
-
-    public static void announcer(long result, int[] array, String name) {
+    public static void announcer(long result, int arrayLength, String name) {
         System.out.println("\n" + name + " method speed: " + result + " ns");
-        System.out.println("Input array length: " + array.length);
+        System.out.println("Input array length: " + arrayLength);
     }
 
     public static int[] createSortedArray(int size) {
