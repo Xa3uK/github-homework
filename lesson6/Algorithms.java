@@ -4,48 +4,48 @@ public class Algorithms {
     public static void main(String[] args) {
         int[] arraySortedLittle = createSortedArray(1000);
         int[] arraySortedBig = createSortedArray(100000);
-        int[] arrayRandomLittle = createRandomArray(1000);
-        int[] arrayRandomBig = createRandomArray(100000);
+        int[] arrayRandomLittleOne = createRandomArray(1000);
+        int[] arrayRandomBigOne = createRandomArray(100000);
+        int[] arrayRandomLittleTwo = createRandomArray(1000);
+        int[] arrayRandomBigTwo = createRandomArray(100000);
+
         timerSimpleFind(arraySortedLittle);
         timerBinaryFind(arraySortedLittle);
         timerSimpleFind(arraySortedBig);
         timerBinaryFind(arraySortedBig);
-        timerSelectionSort(arrayRandomLittle);
-        timerQuickSort(arrayRandomLittle);
-        timerSelectionSort(arrayRandomBig);
-        timerQuickSort(arrayRandomBig);
+        timerSelectionSort(arrayRandomLittleOne);
+        timerQuickSort(arrayRandomLittleTwo);
+        timerSelectionSort(arrayRandomBigOne);
+        timerQuickSort(arrayRandomBigTwo);
     }
 
     public static int[] quickSort(int[] array, int left, int right) {
         if (array.length < 2) {
             return array;
         }
-        if (left >= right) {
+        if (left>= right) {
             return array;
-        } else {
-            int oporniy = array[(left + right) / 2];
-            int i = left;
-            int j = right;
+        }
+        int i = left;
+        int j = right;
+        int oporniy = array[(left + right) /2];
+        while (i < j) {
             while (array[i] < oporniy) {
                 i++;
             }
             while (array[j] > oporniy) {
                 j--;
             }
-            if (i <= j) {
-                int temp = array[i];
+            if (i <= j){
+                int tmp = array[i];
                 array[i] = array[j];
-                array[j] = temp;
+                array[j] = tmp;
                 i++;
                 j--;
             }
-            if (left < j) {
-                quickSort(array, left, j);
-            }
-            if (right > i) {
-                quickSort(array, i, right);
-            }
         }
+        quickSort(array, left, j);
+        quickSort(array, i, right);
         return array;
     }
 
