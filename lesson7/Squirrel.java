@@ -8,34 +8,31 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class Squirrel {
-    private static final String PATH = "D:\\git\\github-homework\\lesson7\\journalEvents_ru.csv";
+    private static final String PATH = "/Users/xa3uk/Desktop/hillel/github-homework/lesson7/journalEvents_ru.csv";
     private static final int ROW_COUNT = fileLength(PATH);
-    private static final String[][] actions = new String[ROW_COUNT][];
+    private static final String[][] events = new String[ROW_COUNT][];
     private static final boolean[] squirrel = new boolean[ROW_COUNT];
 
     public static void main(String[] args) {
-        csvToArrays();
-        String[] allActionsInOneArray = new String[totalActionsSum()];
-        allRowsToOneArray(allActionsInOneArray);
-        String[] uniqueActions = deleteDuplicates(allActionsInOneArray);
-        String[] combinedAction = minMaxActionsFinder(uniqueActions);
-        int[] combinedActionStat = addCombinedStats(combinedAction);
-        resultEvent(combinedAction, combinedActionStat);
+        convertCsvFileToArray();
+        String[] allActions = new String[allActionsCount()];
+        String[] uniqueActions = deleteDuplicates(allActions);
+        correlationResultsAnnouncer(uniqueActions);
+        String[] actionsWithMinMaxEffect = minMaxEffectFinder(uniqueActions);
+        int[] minMaxActionsStats = calcComboStats(actionsWithMinMaxEffect);
+        resultAnnouncer(actionsWithMinMaxEffect, minMaxActionsStats);
     }
 
-    public static String[] minMaxActionsFinder(String[] uniqueActions) {
-        DecimalFormat dF = new DecimalFormat("#.#########");
-        System.out.println("Для корреляции > 0.1 или < -0.1");
+    public static String[] minMaxEffectFinder(String[] uniqueActions) {
         double min = 0;
         double max = 0;
         String actionMin = null;
         String actionMax = null;
         double result;
         for (String uniqueAction : uniqueActions) {
-            int[] actionStats = addSimpleStats(uniqueAction);
+            int[] actionStats = calcSingleStats(uniqueAction);
             result = correlationFormula(actionStats);
             if (result > 0.1 || result < -0.1) {
-                System.out.println(uniqueAction + " :" + dF.format(result));
                 if (result > max) {
                     max = result;
                     actionMax = uniqueAction;
@@ -49,52 +46,65 @@ public class Squirrel {
         return new String[]{actionMax, actionMin};
     }
 
-    public static int[] addCombinedStats(String[] action) {
+    public static int[] calcComboStats(String[] actions) {
         int[] actionStat = new int[4];
-        for (int i = 0; i < actions.length; i++) {
-            if (!isAction(action[0], actions[i]) && (isAction(action[1], actions[i]) && squirrel[i])) {
+        for (int i = 0; i < events.length; i++) {
+            if (!isAction(actions[0], events[i]) && (isAction(actions[1], events[i]) && squirrel[i])) {
                 actionStat[2]++;
             }
-            if (isAction(action[0], actions[i]) && !isAction(action[1], actions[i]) && squirrel[i]) {
+            if (isAction(actions[0], events[i]) && !isAction(actions[1], events[i]) && squirrel[i]) {
                 actionStat[3]++;
-            } else if (isAction(action[0], actions[i]) && !isAction(action[1], actions[i])) {
+            } else if (isAction(actions[0], events[i]) && !isAction(actions[1], events[i])) {
                 actionStat[1]++;
             }
         }
-        actionStat[0] = actions.length - actionStat[1] - actionStat[2] - actionStat[3];
+        actionStat[0] = events.length - actionStat[1] - actionStat[2] - actionStat[3];
         return actionStat;
     }
 
-    public static int[] addSimpleStats(String action) {
+    public static int[] calcSingleStats(String action) {
         int[] actionStat = new int[4];
-        for (int i = 0; i < actions.length; i++) {
-            if (!isAction(action, actions[i]) && squirrel[i]) {
+        for (int i = 0; i < events.length; i++) {
+            if (!isAction(action, events[i]) && squirrel[i]) {
                 actionStat[2]++;
             }
-            if (isAction(action, actions[i]) && (squirrel[i])) {
+            if (isAction(action, events[i]) && (squirrel[i])) {
                 actionStat[3]++;
-            } else if (isAction(action, actions[i])) {
+            } else if (isAction(action, events[i])) {
                 actionStat[1]++;
             }
         }
-        actionStat[0] = actions.length - actionStat[1] - actionStat[2] - actionStat[3];
+        actionStat[0] = events.length - actionStat[1] - actionStat[2] - actionStat[3];
         return actionStat;
     }
 
-    public static double correlationFormula(int[] actionStat) {
-        double upper = actionStat[3] * actionStat[0] - actionStat[2] * actionStat[1];
-        double lower = Math.sqrt((actionStat[2] + actionStat[3]) * (actionStat[0] + actionStat[1])
-                * (actionStat[1] + actionStat[3]) * (actionStat[0] + actionStat[2]));
+    public static double correlationFormula(int[] actionStats) {
+        double upper = actionStats[3] * actionStats[0] - actionStats[2] * actionStats[1];
+        double lower = Math.sqrt((actionStats[2] + actionStats[3]) * (actionStats[0] + actionStats[1])
+                * (actionStats[1] + actionStats[3]) * (actionStats[0] + actionStats[2]));
         return upper / lower;
     }
 
-    public static void resultEvent(String[] combinedAction, int[] combinedActionStat) {
+    public static void correlationResultsAnnouncer(String[] uniqueActions) {
+        DecimalFormat dF = new DecimalFormat("#.#########");
+        System.out.println("Для корреляции > 0.1 или < -0.1");
+        double result;
+        for (String uniqueAction : uniqueActions) {
+            int[] actionStats = calcSingleStats(uniqueAction);
+            result = correlationFormula(actionStats);
+            if (result > 0.1 || result < -0.1) {
+                System.out.println(uniqueAction + " :" + dF.format(result));
+            }
+        }
+    }
+
+    public static void resultAnnouncer(String[] combinedAction, int[] combinedActionsStats) {
         DecimalFormat dFF = new DecimalFormat("#.000000000");
         System.out.println("\nДля нового события");
         String[] actionOne = combinedAction[0].split(" ");
         String[] actionTwo = combinedAction[1].split(" ");
         System.out.println(actionOne[actionOne.length - 1] + "-" + actionTwo[actionTwo.length - 1]
-                + " :" + dFF.format(correlationFormula(combinedActionStat)));
+                + " :" + dFF.format(correlationFormula(combinedActionsStats)));
     }
 
     public static boolean isAction(String action, String[] actions) {
@@ -109,6 +119,7 @@ public class Squirrel {
     }
 
     public static String[] deleteDuplicates(String[] array) {
+        replaceActionsToOneArray(array);
         Arrays.sort(array);
         int uniqueActionCounter = 1;
         for (int i = 0; i < array.length - 1; i++) {
@@ -130,34 +141,34 @@ public class Squirrel {
         return uniqueActions;
     }
 
-    public static void allRowsToOneArray(String[] uniqueActions) {
-        int uniqueActIndex = 0;
-        for (String[] action : actions) {
+    public static void replaceActionsToOneArray(String[] actions) {
+        int index = 0;
+        for (String[] action : events) {
             for (String s : action) {
-                uniqueActions[uniqueActIndex] = s;
-                uniqueActIndex++;
+                actions[index] = s;
+                index++;
             }
         }
     }
 
-    public static int totalActionsSum() {
-        int arraysLength = 0;
-        for (String[] action : actions) {
-            arraysLength = arraysLength + action.length;
+    public static int allActionsCount() {
+        int count = 0;
+        for (String[] action : events) {
+            count = count + action.length;
         }
-        return arraysLength;
+        return count;
     }
 
-    public static void csvToArrays() {
+    public static void convertCsvFileToArray() {
         String line;
-        int innerArrayNumber = 0;
+        int index = 0;
         BufferedReader br = bufferedReader(PATH);
         while ((line = reader(br)) != null) {
             String[] tempArray = line.split(",");
-            actions[innerArrayNumber] = new String[tempArray.length - 1];
-            System.arraycopy(tempArray, 0, actions[innerArrayNumber], 0, actions[innerArrayNumber].length);
-            squirrel[innerArrayNumber] = whichBoolean(tempArray[tempArray.length - 1]);
-            innerArrayNumber++;
+            events[index] = new String[tempArray.length - 1];
+            System.arraycopy(tempArray, 0, events[index], 0, events[index].length);
+            squirrel[index] = whichBoolean(tempArray[tempArray.length - 1]);
+            index++;
         }
     }
 
