@@ -1,4 +1,4 @@
-package lesson12;
+package lesson12.animalfactory;
 
 public class Cat extends Animal{
     public Cat(String name) {

@@ -1,4 +1,4 @@
-package lesson12;
+package lesson12.animalfactory;
 
 public class Animal {
     private String name;

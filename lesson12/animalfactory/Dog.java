@@ -1,4 +1,4 @@
-package lesson12;
+package lesson12.animalfactory;
 
 public class Dog extends Animal{
     public Dog(String name) {

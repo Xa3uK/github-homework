@@ -1,4 +1,4 @@
-package lesson12;
+package lesson12.animalfactory;
 
 import java.util.ArrayList;
 import java.util.List;
