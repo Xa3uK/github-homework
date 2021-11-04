@@ -4,7 +4,7 @@ public class Rectangle {
     private double width;
     private double length;
 
-    protected Rectangle(double width, double length) {
+    public Rectangle(double width, double length) {
         if (width < 0) {
             width = 0;
         }

@@ -6,6 +6,7 @@ public class DogTest {
         System.out.println(labr.getName() + " says " + labr.speak());
         Dog york = new Yorkshire("Didi");
         System.out.println(york.getName() + " says " + york.speak());
-        System.out.println("Average weight of all dogs: " + (labr.avgBreedWeight() + york.avgBreedWeight()));
+        System.out.println("Average weight of all dogs: " +
+                ((labr.avgBreedWeight() + york.avgBreedWeight()) / 2));
     }
 }
