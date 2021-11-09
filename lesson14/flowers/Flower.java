@@ -4,7 +4,7 @@ public abstract class Flower {
     private final double price;
     private final String name;
 
-    public Flower(int price, String name) {
+    public Flower(double price, String name) {
         this.price = price;
         this.name = name;
     }
