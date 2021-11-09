@@ -11,16 +11,16 @@ public class Main {
         List<Character> characters = characterFactory();
         doFight(characters);
         massWeaponSetter(characters, new AxeBehavior());
-        System.out.println("\nFight after switch weapons:");
+        System.out.println("Fight after switch weapons:\n");
         doFight(characters);
     }
 
     public static List<Character> characterFactory() {
         return List.of(
-                new King(new SwordBehavior()),
-                new Queen(new BowAndArrowBehavior()),
-                new Knight(new AxeBehavior()),
-                new Troll(new KnifeBehavior())
+                new King(new SwordBehavior(), "Arthur"),
+                new Queen(new BowAndArrowBehavior(), "Elisabeth"),
+                new Knight(new AxeBehavior(), "Dragar"),
+                new Troll(new KnifeBehavior(), "Uranlan")
         );
     }
 
