@@ -1,5 +1,7 @@
 package lesson14;
 
+import lesson14.FlightTicket.*;
+
 public class TicketRunner {
     public static void main(String[] args) {
         Passenger pasPetrov = new Passenger("Василий", "Петров", 123456);

@@ -1,4 +1,4 @@
-package lesson14;
+package lesson14.FlightTicket;
 
 public class Meal {
     private final Menu menu;
