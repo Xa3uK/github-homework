@@ -4,7 +4,7 @@ public class FlightInfo {
     private final int flightNumber;
     private final String departure;
     private final String destination;
-    private double time;
+    private final double time;
     private final int cost;
 
     public FlightInfo(int flightNumber, String departure, String destination, double time, int cost) {
