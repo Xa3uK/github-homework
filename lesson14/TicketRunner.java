@@ -1,6 +1,6 @@
 package lesson14;
 
-import lesson14.FlightTicket.*;
+import lesson14.flightTicket.*;
 
 public class TicketRunner {
     public static void main(String[] args) {

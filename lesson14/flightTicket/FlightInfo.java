@@ -1,4 +1,4 @@
-package lesson14.FlightTicket;
+package lesson14.flightTicket;
 
 public class FlightInfo {
     private final int flightNumber;

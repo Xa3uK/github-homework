@@ -1,18 +1,23 @@
-package lesson14.FlightTicket;
+package lesson14.flightTicket;
 
-public enum Drinks {
-    YES(0, "C напитками", 50),
-    NO(1, "без", 0);
-
+public enum Menu {
+    SOUP(0, "Суп", 300),
+    VEGETABLES(1, "Овощи", 30),
+    MEAT(2, "Мясо", 200),
+    DESSERT(3, "Десерт", 100);
 
     private final int var;
     private final String description;
     private final int price;
 
-    Drinks(int var, String description, int price) {
+    Menu(int var, String description, int price) {
         this.var = var;
         this.description = description;
         this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public int getVar() {
@@ -23,16 +28,12 @@ public enum Drinks {
         return description;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     @Override
     public String toString() {
-        return "Drinks{" +
+        return "Menu{" +
                 "var=" + var +
                 ", description='" + description + '\'' +
-                ", price=" + price + "$" +
-                '}';
+                ", price=" + price + '$' +
+                "},\n";
     }
 }
