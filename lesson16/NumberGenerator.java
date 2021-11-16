@@ -31,15 +31,17 @@ public class NumberGenerator {
         if (maxNumber - minNumber < numberOfElements) {
             throw new UnsupportedOperationException();
         } else {
-            Random random = new Random();
+            List<Integer> temp = new ArrayList<>();
+            for (int i = minNumber; i < maxNumber; i++) {
+                temp.add(i);
+            }
             int counter = numberOfElements;
+            Random random = new Random();
             while (counter > 0) {
-                int number = random.nextInt(maxNumber - minNumber) + minNumber;
-                while (!set.contains(number)) {
-                    set.add(number);
-                    counter--;
-                    break;
-                }
+                int index = random.nextInt(temp.size());
+                set.add(temp.get(index));
+                temp.remove(index);
+                counter--;
             }
         }
         return set;
