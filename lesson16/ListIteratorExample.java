@@ -47,9 +47,12 @@ public class ListIteratorExample {
     public static LinkedList<String> linkElementsAdd(int size) {
         LinkedList<String> list = new LinkedList<>();
         list.add("li_0");
-        while (size-- > 1) {
+        while (size > 1) {
             int index = randomIndex(list);
-            list.add(index, "li_" + index);
+            if (!list.contains("li_" + index)) {
+                list.add(randomIndex(list), "li_" + index);
+                size--;
+            }
         }
         return list;
     }
