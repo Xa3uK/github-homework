@@ -3,7 +3,7 @@ package lesson17;
 import java.util.TreeMap;
 
 public class Product {
-    TreeMap<String, Integer> productDescription;
+    private TreeMap<String, Integer> productDescription;
 
     public Product() {
         this.productDescription = new TreeMap<>();

@@ -11,7 +11,7 @@ public class Main {
         for (Map.Entry<Customer, Product> customerEntry : map.entrySet()) {
             Product product = customerEntry.getValue();
             System.out.println(customerEntry.getKey() + ":");
-            for (Map.Entry<String, Integer> productEntry : product.productDescription.entrySet()) {
+            for (Map.Entry<String, Integer> productEntry : product.getProduct().entrySet()) {
                 System.out.println(productEntry.getKey() + " " + productEntry.getValue());
             }
             System.out.println();
