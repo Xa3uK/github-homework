@@ -1,4 +1,4 @@
-package lesson17;
+package lesson17.shop;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.util.TreeMap;
 public class Reader {
 
     public TreeMap<Customer, Product> fileToMap() {
-        String path = "lesson17/input";
+        String path = "lesson17/shop/input";
         String line = null;
         BufferedReader br = bufferedReader(path);
         TreeMap<Customer, Product> map = new TreeMap<>();
