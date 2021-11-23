@@ -1,4 +1,4 @@
-package lesson17;
+package lesson17.translator;
 
 public class Main {
     public static void main(String[] args) {

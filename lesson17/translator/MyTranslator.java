@@ -1,4 +1,4 @@
-package lesson17;
+package lesson17.translator;
 
 import java.util.HashMap;
 import java.util.List;
