@@ -21,7 +21,6 @@ public class Util {
         while (it.hasNext()) {
             String word = it.next();
             if (temp.equals(String.valueOf(word.charAt(0)))) {
-                temp = String.valueOf(word.charAt(0));
                 System.out.print(" " + word);
             } else {
                 temp = String.valueOf(word.charAt(0));
