@@ -6,10 +6,9 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 public class Reader {
-
     private final static String fileName = "lesson23/resources/text.txt";
 
-    public static String readStr() {
+    public static String readFile() {
         String str = null;
         try (Stream<String> lineStream = Files.lines(Path.of(fileName))) {
             str = lineStream
