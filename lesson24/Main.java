@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         List<Product> allProducts = ListsGenerator.createProducts();
         List<Order> allOrders = ListsGenerator.allOrders();
-
+        
 //   Упражнение 1. Получите список товаров (Product), относящихся к категории "Книги" с ценой > 100.
         System.out.println("All books with price bigger then 100:");
 
@@ -43,8 +43,8 @@ public class Main {
 
 //    Упражнение 4. Получите список товаров (Product), заказанных клиентом уровня 2 (поле tier класса Customer) в период с 01.10.2021. по 01.11.2021.
         System.out.println("Products of customer with tier '2' and ordered in 2021.10.01 - 2021.11.01:");
-        LocalDate startDate = LocalDate.of(2021, 10, 1);
-        LocalDate endDate = LocalDate.of(2021, 11, 1);
+        LocalDate startDate = LocalDate.of(2021, 9, 30);
+        LocalDate endDate = LocalDate.of(2021, 11, 2);
 
         allOrders.stream()
                 .filter(o -> o.getCustomer().getTier() == 2 && o.getOrderDate().isAfter(startDate)
@@ -80,12 +80,9 @@ public class Main {
 //        Упражнение 7. Получите список заказов (Order), которые были заказаны 15.11.2021 года, выведите заказы в консоль и затем верните список продуктов, заказанных в этот день.
         System.out.println("All orders in 2021.11.15 and then all products:");
 
-        allOrders.stream()
-                .filter(x -> x.getOrderDate().equals(LocalDate.of(2021, 11, 15)))
-                .forEach(System.out::println);
-
         List<Product> products = allOrders.stream()
                 .filter(x -> x.getOrderDate().equals(LocalDate.of(2021, 11, 15)))
+                .peek(System.out::println)
                 .map(Order::getProducts)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());

@@ -94,11 +94,10 @@ public class ListsGenerator {
         products5.add(prod6);
 
 
-
-        Order order1 = new Order(11L, "in shop", LocalDate.of(2021, 10, 24),
+        Order order1 = new Order(11L, "in shop", LocalDate.of(2021, 10, 15),
                 LocalDate.of(2021, 12, 12), products, customer1);
 
-        Order order2 = new Order(21L, "delivering", LocalDate.of(2021, 10, 7),
+        Order order2 = new Order(21L, "delivering", LocalDate.of(2021, 9, 1),
                 LocalDate.of(2021, 12, 2), products1, customer2);
 
         Order order3 = new Order(31L, "delivered", LocalDate.of(2021, 10, 12),
@@ -107,7 +106,7 @@ public class ListsGenerator {
         Order order4 = new Order(41L, "in shop", LocalDate.of(2021, 11, 15),
                 LocalDate.of(2021, 12, 15), products3, customer4);
 
-        Order order5 = new Order(51L, "delivering", LocalDate.of(2021, 10, 8),
+        Order order5 = new Order(51L, "delivering", LocalDate.of(2021, 11, 1),
                 LocalDate.of(2021, 12, 6), products4, customer5);
 
         Order order6 = new Order(61L, "delivered", LocalDate.of(2021, 11, 8),
